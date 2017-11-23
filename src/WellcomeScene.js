@@ -2,24 +2,26 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View,button, Button} from 'react-native';
 import styles from './default-StyleScene';
-type Props={};
+import {ROUTES} from './const/constants';
+
+type Props={
+  navigate: (page: string)=> void,
+};
 type State={
-current:string,
+  page:string,
 };
 
+
 export default class WellcomeScene extends Component<Props,State> {
-  constructor(){
-    super(...arguments);
-    this.state={
-      current:'Wellcome',
-    }
-  }
+ state={
+   page:ROUTES.HOME,
+ }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.counterText}>Wellcome</Text>
-        <Button title='Search' onPress={()=>{}}/>
-        <Button title='Browse' onPress={()=>{}}/>
+        <Button title='Search' onPress={() => this.props.navigate(ROUTES.SEARCH)}/>
+        <Button title='Browse' onPress={() => this.props.navigate(ROUTES.BROWSE)}/>
       </View>
     );
   }
