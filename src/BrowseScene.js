@@ -12,7 +12,7 @@ type Props={
   export default class BrowseScene extends Component<Props> {
    
     render() {
-      console.log(this.props.historypage);
+      // console.log(this.props.historypage);
       return (
         <View style={styles.container}>
           <Text style={styles.counterText}>Browse</Text>

@@ -14,7 +14,7 @@ type Props={
 export default class WellcomeScene extends Component<Props> {
   
   render() {
-    console.log(this.props.historypage);
+    // console.log(this.props.historypage);
     return (
       <View style={styles.container}>
         <Text style={styles.counterText}>Wellcome</Text>
