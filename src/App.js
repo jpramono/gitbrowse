@@ -9,13 +9,13 @@ import {ROUTES} from './const/constants';
 type Props={};
 type State={
   currentPage: string,
-  historyPage: array<string>,
+  historyPage: Array<string>,
 };
 
 export default class App extends Component<Props,State> {
   state={
     currentPage : ROUTES.HOME,
-    historyPage : []
+    historyPage : [ROUTES.HOME],
   }
   componentDidMount(){
     BackHandler.addEventListener("hardwareBackPress",this._onBackHardwarepress);
@@ -23,34 +23,41 @@ export default class App extends Component<Props,State> {
   componentWillUnmount(){
     BackHandler.removeEventListener("hardwareBackPress",this._onBackHardwarepress);
   }
-  _onBackHardwarepress(){
-    if(this.state.currentPage=== ROUTES.HOME){
+  _onBackHardwarepress=()=>{
+    if(this.state.historyPage.length===0){
       return false;
     }else{
+      let sizehistpage=this.state.historyPage.length;
+      
+      let newhistpage = [...this.state.historyPage];
+      newhistpage.pop();
+      //let newhistpage =[...histpage];
+      console.log(newhistpage);
       this.setState({
-        currentPage: ROUTES.HOME
+        currentPage: this.state.historyPage[sizehistpage-1],
+        historyPage: newhistpage,
       });
       return true;
     }
   }
-  gopage(page,historypage){
-
-  }
-  backpage(historypage){
-
-  }
+  
   render() {
     
-      let navigate = page => this.setState({currentPage: page});
+      let navigate = page => {this.setState({
+        currentPage: page,
+        historyPage: [...this.state.historyPage, page],
+      })};
+     
       switch (this.state.currentPage) { 
+        
               case ROUTES.HOME: { 
-                 return <WellcomeScene navigate={navigate} />; 
+                 return <WellcomeScene navigate={navigate} historypage={this.state.historyPage} />; 
                } 
                case ROUTES.SEARCH: { 
-                 return <SearchScene navigate={navigate} />; 
+                 return <SearchScene navigate={navigate} historypage={this.state.historyPage}/>; 
                } 
                case ROUTES.BROWSE: { 
-                 return <BrowseScene navigate={navigate} />; 
+                 return <BrowseScene navigate={navigate} historypage={this.state.historyPage}/>; 
                } 
                default: { 
                  throw new Error('Unknown route.'); 

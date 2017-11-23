@@ -6,17 +6,15 @@ import {ROUTES} from './const/constants';
 
 type Props={
   navigate: (page: string)=> void,
-};
-type State={
-  page:string,
+  historypage: Array<string>,
 };
 
 
-export default class WellcomeScene extends Component<Props,State> {
- state={
-   page:ROUTES.HOME,
- }
+
+export default class WellcomeScene extends Component<Props> {
+  
   render() {
+    console.log(this.props.historypage);
     return (
       <View style={styles.container}>
         <Text style={styles.counterText}>Wellcome</Text>
